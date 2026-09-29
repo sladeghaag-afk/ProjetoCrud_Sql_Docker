@@ -1,0 +1,46 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: projetocrud-sqlserver
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Coti@2026"
+
+    ports:
+      - "1434:1433"
+
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+    networks:
+      - projetocrud-network
+
+    restart: unless-stopped
+
+
+  adminer:
+    image: adminer:latest
+    container_name: projetocrud-adminer
+
+    ports:
+      - "5052:8080"
+
+    depends_on:
+      - sqlserver
+
+    networks:
+      - projetocrud-network
+
+    restart: unless-stopped
+
+
+volumes:
+
+  sqlserver_data:
+
+
+networks:
+  projetocrud-network:
+    driver: bridge
