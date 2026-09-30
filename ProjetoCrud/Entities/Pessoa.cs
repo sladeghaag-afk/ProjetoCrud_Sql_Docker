@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoCrud.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -20,6 +21,7 @@ namespace ProjetoCrud.Entities
         [EmailAddress(ErrorMessage = "Informe um endereço de email válido.")]
         [Required(ErrorMessage = "O email da pessoa é obrigatório.")]
         public string Email { get; set; } = string.Empty;
+        [CpfValidation]
         [RegularExpression("^[0-9]{11}$",ErrorMessage = "O cpf deve conter exatamente 11 números(sem pontos e traços).")]
         [Required(ErrorMessage = "O cpf da pessoa é obrigatório.")]
         public string Cpf { get; set; } = string.Empty;
